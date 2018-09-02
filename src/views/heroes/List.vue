@@ -21,8 +21,11 @@
                   <td>
                     <a href="edit.html">edit</a>
                     &nbsp;&nbsp;
-                    <a href="javascript:window.confirm('Are you sure?')">delete</a>
+                    <a href="javascript:;" @click.prevent="handleDlete(item.id)">delete</a>
                   </td>
+                </tr>
+                <tr>
+                  <td v-if="list.lenght==0" colspan="4">暂无数据</td>
                 </tr>
               </tbody>
             </table>
@@ -45,10 +48,27 @@ export default {
     methods:{
       loadData(){
         axios
-        .get('http://localhost:3000/heroes')
+        .get('http://localhost:3000/heroes/')
         .then((response)=>{
           if(response.status===200){
             this.list = response.data
+          }
+        })
+        .catch((err)=>{
+          console.log(err);
+          
+        })
+      },
+      handleDlete(id){
+        if(!confirm('确定删 ？')){
+          return;
+        }
+        axios
+        .delete(`http://localhost:3000/heroes/${id}`)
+        .then((response)=>{
+          if(response.status == 200){
+            alert('删除成功');
+            this.loadData()
           }
         })
         .catch((err)=>{
