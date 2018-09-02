@@ -12,8 +12,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './assets/css/index.css';
 
 //导入路由模块
-import router from './routers'
+import router from './routers';
 
+// import axios from 'axios';
+//给vue的原型增加axios成员
+// axios.defaults.baseURL = 'http://localhost:3000/';
+// Vue.prototype.$http = axios;
+
+import MyHttp from './plugins/MyHttp.js';
+//注册事件
+//调用插件对象MyHttp.install方法
+Vue.use(MyHttp);
 new Vue({
   el: '#app',
   render: h => h(App),

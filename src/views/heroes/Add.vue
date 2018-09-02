@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
     data(){
@@ -31,8 +31,9 @@ export default {
     },
     methods: {
         handleAdd(){
-            axios
-            .post('http://localhost:3000/heroes',this.formData)
+            // axios
+            this.$http
+            .post('heroes',this.formData)
             .then((response)=>{
                 if(response.status ===201){
                     alert('添加成功')

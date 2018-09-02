@@ -20,7 +20,8 @@
                   <td>{{item.name}}</td>
                   <td>{{item.gender}}</td>
                   <td>
-                    <a href="edit.html">edit</a>
+                    <!-- <a href="edit.html">edit</a> -->
+                    <router-link :to="'/heroes/edit/' + item.id">edit</router-link>
                     &nbsp;&nbsp;
                     <a href="javascript:;" @click.prevent="handleDlete(item.id)">delete</a>
                   </td>
@@ -35,7 +36,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 export default {
   data(){
     return {
@@ -48,8 +49,9 @@ export default {
     },
     methods:{
       loadData(){
-        axios
-        .get('http://localhost:3000/heroes/')
+        // axios
+        this.$http
+        .get('heroes')
         .then((response)=>{
           if(response.status===200){
             this.list = response.data
@@ -64,8 +66,9 @@ export default {
         if(!confirm('确定删 ？')){
           return;
         }
-        axios
-        .delete(`http://localhost:3000/heroes/${id}`)
+        // axios
+        this.$http
+        .delete(`heroes/${id}`)
         .then((response)=>{
           if(response.status == 200){
             alert('删除成功');
